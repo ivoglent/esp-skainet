@@ -28,7 +28,8 @@ void feed_Task(void *arg)
     int audio_chunksize = afe_handle->get_feed_chunksize(afe_data);
     int nch = afe_handle->get_feed_channel_num(afe_data);
     int feed_channel = esp_get_feed_channel();
-    assert(nch==feed_channel);
+    assert(nch<=feed_channel);
+    //(nch <= feed_channel);
     int16_t *i2s_buff = malloc(audio_chunksize * sizeof(int16_t) * feed_channel);
     assert(i2s_buff);
 
@@ -58,7 +59,9 @@ void detect_Task(void *arg)
             printf("fetch error!\n");
             break;
         }
-        // printf("vad state: %d\n", res->vad_state);
+        //if (res->vad_state == VAD_SPEECH) {
+        //    printf("vad state: %d\n", res->vad_state);
+        //}
 
         if (res->wakeup_state == WAKENET_DETECTED) {
             printf("wakeword detected\n");
@@ -80,6 +83,10 @@ void app_main()
 
     srmodel_list_t *models = esp_srmodel_init("model");
     afe_config_t *afe_config = afe_config_init(esp_get_input_format(), models, AFE_TYPE_SR, AFE_MODE_LOW_COST);
+    afe_config->pcm_config.total_ch_num = 2;
+    afe_config->pcm_config.mic_num = 1;
+    afe_config->pcm_config.ref_num = 1;
+    //afe_config->aec_init = false;
     afe_handle = esp_afe_handle_from_config(afe_config);
     esp_afe_sr_data_t *afe_data = afe_handle->create_from_config(afe_config);
     afe_config_free(afe_config);

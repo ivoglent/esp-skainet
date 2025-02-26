@@ -26,6 +26,10 @@ if(CONFIG_ESP32_P4_FUNCTION_EV_BOARD)
     list(APPEND BSP_BOARD_SRC "./boards/esp32p4-function-ev")
 endif()
 
+if(CONFIG_ESP32_S3_DEVKIT_C)
+    list(APPEND BSP_BOARD_SRC "./boards/esp32s3-devkit-c")
+endif()
+
 
 idf_component_register(
     SRC_DIRS
