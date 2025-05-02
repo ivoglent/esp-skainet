@@ -41,10 +41,10 @@
  * 
  */
 #define FUNC_I2S_EN         (1)
-#define GPIO_I2S_LRCK       (GPIO_NUM_11)
+#define GPIO_I2S_LRCK       (GPIO_NUM_8)
 #define GPIO_I2S_MCLK       (GPIO_NUM_NC)
-#define GPIO_I2S_SCLK       (GPIO_NUM_12)
-#define GPIO_I2S_SDIN       (GPIO_NUM_10)
+#define GPIO_I2S_SCLK       (GPIO_NUM_9)
+#define GPIO_I2S_SDIN       (GPIO_NUM_7)
 #define GPIO_I2S_DOUT       (GPIO_NUM_NC)
 
 /**
